@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Upazila</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#0f172a', secondary: '#16a34a' }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Navbar -->
+    <nav class="bg-primary text-white p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold flex items-center gap-2"><i class="fa-solid fa-building-flag text-secondary"></i> Digital Upazila</h1>
+            <div class="hidden md:flex gap-6">
+                <a href="#" class="hover:text-secondary transition font-semibold">Home</a>
+                <a href="#" class="hover:text-secondary transition font-semibold">Services</a>
+                <a href="/api/admin/applications" target="_blank" class="hover:text-secondary transition font-semibold text-yellow-400">Admin Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="bg-primary text-white py-20 text-center border-t border-gray-700">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">Welcome to Digital Upazila Services</h2>
+            <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">Get your citizenship, trade license, and other certificates online without the hassle. Fast, secure, and 100% transparent.</p>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <div class="container mx-auto px-4 py-16">
+        <h3 class="text-3xl font-bold text-center mb-12 text-primary">Our Services</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Card 1 -->
+            <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-xl transition flex flex-col items-center text-center">
+                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex justify-center items-center text-3xl mb-4"><i class="fa-solid fa-id-card"></i></div>
+                <h4 class="text-xl font-bold mb-2">Citizenship Certificate</h4>
+                <p class="text-gray-500 mb-6 flex-grow">Apply for a new citizenship certificate or verify your existing one instantly online.</p>
+                <button onclick="openModal('Citizenship Certificate')" class="w-full bg-secondary text-white py-2 rounded-lg font-semibold hover:bg-green-700 transition">Apply Now</button>
+            </div>
+            <!-- Card 2 -->
+            <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-xl transition flex flex-col items-center text-center">
+                <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex justify-center items-center text-3xl mb-4"><i class="fa-solid fa-shop"></i></div>
+                <h4 class="text-xl font-bold mb-2">Trade License</h4>
+                <p class="text-gray-500 mb-6 flex-grow">Register your new business, renew your existing trade license, and pay fees digitally.</p>
+                <button onclick="openModal('Trade License')" class="w-full bg-secondary text-white py-2 rounded-lg font-semibold hover:bg-green-700 transition">Apply Now</button>
+            </div>
+            <!-- Card 3 -->
+            <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-xl transition flex flex-col items-center text-center">
+                <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex justify-center items-center text-3xl mb-4"><i class="fa-solid fa-person-breastfeeding"></i></div>
+                <h4 class="text-xl font-bold mb-2">Birth/Death Reg.</h4>
+                <p class="text-gray-500 mb-6 flex-grow">Quick assistance for official birth and death registration certificates with verifiable QR codes.</p>
+                <button onclick="openModal('Birth/Death Registration')" class="w-full bg-secondary text-white py-2 rounded-lg font-semibold hover:bg-green-700 transition">Apply Now</button>
+            </div>
+            <!-- Card 4 -->
+            <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-xl transition flex flex-col items-center text-center">
+                <div class="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex justify-center items-center text-3xl mb-4"><i class="fa-solid fa-scroll"></i></div>
+                <h4 class="text-xl font-bold mb-2">Inheritance Certificate</h4>
+                <p class="text-gray-500 mb-6 flex-grow">Apply for 'Warish' (Inheritance) certificates securely and track the verification process.</p>
+                <button onclick="openModal('Inheritance Certificate')" class="w-full bg-secondary text-white py-2 rounded-lg font-semibold hover:bg-green-700 transition">Apply Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Form Modal -->
+    <div id="applyModal" class="fixed inset-0 bg-black bg-opacity-60 hidden flex justify-center items-center z-50 p-4">
+        <div class="bg-white rounded-2xl w-full max-w-md p-8 relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500"><i class="fa-solid fa-times text-2xl"></i></button>
+            <h3 id="modalTitle" class="text-2xl font-bold mb-6 text-primary border-b pb-2">Apply for Service</h3>
+            
+            <form id="applyForm" onsubmit="submitApplication(event)">
+                <input type="hidden" id="serviceType" name="serviceType">
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2">Full Name</label>
+                    <input type="text" id="applicantName" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary" placeholder="Enter your full name">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2">Phone Number</label>
+                    <input type="tel" id="phone" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary" placeholder="017XXXXXXXX">
+                </div>
+                
+                <div class="mb-8">
+                    <label class="block text-gray-700 font-semibold mb-2">NID / Details</label>
+                    <input type="text" id="details" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary" placeholder="Enter NID or relevant details">
+                </div>
+                
+                <button type="submit" id="submitBtn" class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-gray-800 transition">
+                    Submit Application <i class="fa-solid fa-paper-plane ml-2"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script for API calls -->
+    <script>
+        function openModal(serviceName) {
+            document.getElementById('modalTitle').innerText = 'Apply: ' + serviceName;
+            document.getElementById('serviceType').value = serviceName;
+            document.getElementById('applyModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('applyModal').classList.add('hidden');
+            document.getElementById('applyForm').reset();
+        }
+
+        async function submitApplication(event) {
+            event.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerHTML = 'Submitting... <i class="fa-solid fa-spinner fa-spin ml-2"></i>';
+            btn.disabled = true;
+
+            const formData = {
+                applicantName: document.getElementById('applicantName').value,
+                phone: document.getElementById('phone').value,
+                serviceType: document.getElementById('serviceType').value,
+                details: document.getElementById('details').value
+            };
+
+            try {
+                // Vercel serverless function endpoint
+                const response = await fetch('/api/apply', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('✅ Success! Your application has been submitted to the MongoDB database.');
+                    closeModal();
+                } else {
+                    alert('❌ Error: ' + (result.message || 'Failed to submit.'));
+                }
+            } catch (error) {
+                alert('⚠️ Server Error. Failed to connect to the backend.');
+            } finally {
+                btn.innerHTML = 'Submit Application <i class="fa-solid fa-paper-plane ml-2"></i>';
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
